@@ -12,7 +12,7 @@ Model name is converted to lowercase for the collection name:
 """
 
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
 
 # Example schemas (replace with your own):
 
@@ -37,6 +37,20 @@ class Product(BaseModel):
     price: float = Field(..., ge=0, description="Price in dollars")
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
+
+# Interview preparation app schemas
+
+class InterviewSession(BaseModel):
+    """
+    Stores an interview practice session
+    Collection: "interviewsession"
+    """
+    field: str = Field(..., description="Selected interview field, e.g., Software Engineering")
+    questions: List[str] = Field(..., description="Generated interview questions")
+    answers: Optional[List[str]] = Field(default=None, description="User answers corresponding to questions")
+    feedback: Optional[List[str]] = Field(default=None, description="Automated feedback per answer")
+    score: Optional[float] = Field(default=None, ge=0, le=100, description="Overall score percentage")
+    notes: Optional[str] = Field(default=None, description="Additional notes or summary for the session")
 
 # Add your own schemas here:
 # --------------------------------------------------
